@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <cstdlib> // for system()
 
 struct NodArbore {
     int valoare{};            // Valoarea stocată în nod
@@ -170,14 +171,27 @@ void completeazaArbore(NodArbore*& nod, int level, int maxLevel){
     }
 }
 
+void cautaValoare(NodArbore* nod, int valore){
+    if(nod == nullptr || nod->empty == 18){
+        std::cout<<"Valuoarea nu a fost gasita"<<std::endl;
+    }else if(valore == nod->valoare){
+        std::cout<<"Valuoarea exista in arbore"<<std::endl;
+    }else if(valore < nod->valoare){
+        cautaValoare(nod->stanga,valore);
+    }else{
+        cautaValoare(nod->dreapta,valore);
+    }
+}
+
+
+
 int main() {
     NodArbore* radacina = nullptr;
     int choice;
     do {
         // Display the menu
-        for(int i=0;i<=100;i++) {
-            std::cout << "" << std::endl;
-        }
+//        system("clear");
+        std::cout << std::endl << std::endl;
         std::cout << "Menu:" << std::endl;
         std::cout << "1 -> Insert new element" << std::endl;
         std::cout << "2 -> Display in inorder" << std::endl;
@@ -186,12 +200,13 @@ int main() {
         std::cout << "5 -> Display by level" << std::endl;
         std::cout << "6 -> Draw tree" << std::endl;
         std::cout << "7 -> Calculate tree height" << std::endl;
+        std::cout << "8 - Cauta element"<<std::endl;
         std::cout << "0 -> Exit" << std::endl;
 
         // Prompt for user input
         std::cout << "Enter your choice: ";
         std::cin >> choice;
-
+        system("clear");
         switch (choice) {
             case 1:
                 // Call the function to insert a new element
@@ -226,6 +241,12 @@ int main() {
             case 7:
                 // Call the function to calculate tree height
                 std::cout << "Tree height: " << calculareAdancime(radacina) << std::endl;
+                break;
+            case 8:
+                int val2;
+                std::cout << "Enter the value to search: ";
+                std::cin >> val2;
+                cautaValoare(radacina,val2);
                 break;
             case 0:
                 // Exit the program
